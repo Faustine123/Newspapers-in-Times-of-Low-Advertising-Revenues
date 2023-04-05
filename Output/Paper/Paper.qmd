@@ -1,0 +1,104 @@
+---
+title: "Newspapers in Times of Low Advertising Revenues ^[Code and data are available at:https://github.com/Faustine123/Newspapers-in-Times-of-Low-Advertising-Revenues]"
+author: "Faustine Fan"
+date: "4 April 2023"
+date-format: long
+abstract: "guidlines."
+format: pdf
+documentclass: article
+geometry: margin = 1in 
+bibliography: references.bib
+---
+## 1. Introduction
+
+[@beach]
+
+### 1.1 Overview of Additional Selected Articles
+
+## 2. Data
+
+### 2.1 Source
+
+### 2.2 Methodology
+
+This analysis will be performed in R [@R], using the dplyr [@dplyr], readxl [@readxl], tidyr [@tidyr], data.table [@table], lubridate [@lube], haven [@haven], and tidyverse [@tidy] packages. All figures in the report are generated using ggplot2 [@ggplot].
+
+The collection method of our sources varies. For @fig-2CoivdDeath, @fig-3regionalinfluenza, @fig-4lifeexpectancy mentioned in the sources section above, our team believes that they are relatively impartial and objective. For source of @fig-1mortality, Murray et. al compiled all countries with high-quality vital registration data for the 1918-20 pandemic and used these data to calculate excess mortality. This might cause certain biases and make the data inaccurate when applying it globally. For example, proper data collection just began in 1918, and only countries that have the resources to properly record the data are chosen. It is reasonable to argue that they are already developed nations, and only including them means that the data is not representing other affected developing nations at the time.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.width=6.5, fig.height=2.8) 
+# loading in relevant libraries
+library(tidyverse)
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr)
+library(readxl)
+library(data.table)
+library(lubridate)
+library(haven)
+library(readxl)
+library(ggplot2)
+### Input data ###
+figure1_rawdata<-read_dta(here::here("Input/Data/Angelucci_Cage_AEJMicro_dataset.dta"))
+figure2_rawdata<-read_dta(here::here("Input/Data/Angelucci_Cage_AEJMicro_Descriptive_evidence_advertisement.dta"))
+figure3_rawdata<-read_dta(here::here("Input/Data/Angelucci_Cage_AEJMicro_Descriptive_evidence_advertising_industry.dta"))
+figure4_rawdata<-read_dta(here::here("Input/Data/Angelucci_Cage_AEJMicro_Descriptive_evidence_television_quality.dta"))
+figure5_rawdata<-read_dta(here::here("Input/Data/Angelucci_Cage_AEJMicro_Descriptive_evidence_US.dta"))
+
+```
+
+### 2.2 Features
+
+## 3. Results
+
+Excess mortality rate is the rate of deaths from all causes during a crisis (in this case, the pandemic) above and beyond what we would have expected to see under "normal" conditions. It is imperative to understand which group is the most vulnerable, since that information can aid our healthcare system to mitigate the impact. In figure 1 below, we have compared the mortality rate with age groups and gender during the 1918 Influenza. There is a clear spike of excess death rate for male and female populations in the 25 to 29 age group. In addition, the H1N1 virus seems to be most effective at killing young adults and the middle age population from 15 to 39. Furthermore, males have a higher chance of death overall when compared to females during the influenza in those 13 recorded countries.
+
+```{r}
+#| label: fig-1mortality
+#| fig-cap: Median Excess Mortality Rate by Age and Sex in 13 Countries
+#| message: false
+#| warning: false
+#| echo: false
+
+### Draw graph ###
+
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: fig-2CoivdDeath
+#| fig-cap: "Covid-19 Death by Age in United States"
+
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-cap: "Stock Market Indices by year in London and U.S."
+#| label: fig-5stockmarket
+
+### Draw graph ###
+```
+
+## 4. Discussion
+
+### 4.1 Findings
+
+We can clearly see that the Influenza and COVID-19 affects vastly different age groups in the above section(@fig-1mortality)(@fig-2CoivdDeath).
+
+### 4.2
+
+### 4.3 Ethical Implications
+
+### 4.4 Potential Bias
+
+### 4.5 Limitations of Our Paper
+
+### 4.6 Possible Next Steps
+
+{{< pagebreak >}} \## References
