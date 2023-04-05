@@ -3,7 +3,7 @@ title: "Newspapers in Times of Low Advertising Revenues ^[Code and data are avai
 author: "Faustine Fan"
 date: "4 April 2023"
 date-format: long
-abstract: "guidlines."
+abstract: "Newspaper"
 format: pdf
 documentclass: article
 geometry: margin = 1in 
