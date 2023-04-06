@@ -1,9 +1,9 @@
 ---
 title: "Newspapers in Times of Low Advertising Revenues ^[Code and data are available at:https://github.com/Faustine123/Newspapers-in-Times-of-Low-Advertising-Revenues]"
 author: "Faustine Fan"
-date: "4 April 2023"
+date: "5 April 2023"
 date-format: long
-abstract: "Newspaper"
+abstract: "Newspaper(Will add after I finished this paper:)"
 format: pdf
 documentclass: article
 geometry: margin = 1in 
@@ -11,9 +11,13 @@ bibliography: references.bib
 ---
 ## 1. Introduction
 
-[@beach]
+As the world undergoes digital transformation, the newspaper industry faces many challenges that affect their circulation, content quality and pricing strategies.As noted by Alotaibi and Sultan [@2015alotaibi], the emergence of mobile devices and the increase in online news consumption have led newspapers to create digital versions of their publications to attract new readers and advertisers. One important point is that the digitization of people's lives has led to a decline in newspaper subscriptions and advertisers have changed the placement of some of their ads in response to changing market demand. Since advertising revenue is an important source of revenue for newspapers, a decrease in advertising may lead to a decrease in the number of issues printed and distributed as well as the quality of content produced. This in turn could affect the number of journalists employed, their salaries, and the quality of the important stories they cover.
 
-### 1.1 Overview of Additional Selected Articles
+It is an interesting phenomenon that as newspaper content, pricing strategies change, the education and property levels of subscribers fluctuate. In addition, national and local newspapers may have different pricing strategies depending on their target audience and advertising revenue. The relationship between newspapers and their advertising suppliers and subscribers may also be affected by reduced advertising revenues, leading to potential conflicts of interest.
+
+In addition, newspapers may resort to price discrimination strategies, such as offering discounts to long-term subscribers, to maintain their customer base. the rise of television advertising in the 20th century and the transition from black-and-white to color television may also affect the demand for newspapers and their ability to attract advertisers. When the Internet wave hit, newspapers faced another wave of impact.
+
+Given these challenges, it is important to examine the strategies newspapers have adopted in an era of low advertising and how they are adapting to changing market conditions to ensure their survival and relevance in today's media environment. The purpose of this research paper is to examine the impact of low advertising on the newspaper industry, the pricing strategies employed by newspapers, and the relationship between newspapers, advertisers, and subscribers.
 
 ## 2. Data
 
@@ -23,13 +27,14 @@ bibliography: references.bib
 
 This analysis will be performed in R [@R], using the dplyr [@dplyr], readxl [@readxl], tidyr [@tidyr], data.table [@table], lubridate [@lube], haven [@haven], and tidyverse [@tidy] packages. All figures in the report are generated using ggplot2 [@ggplot].
 
-The collection method of our sources varies. For @fig-2CoivdDeath, @fig-3regionalinfluenza, @fig-4lifeexpectancy mentioned in the sources section above, our team believes that they are relatively impartial and objective. For source of @fig-1mortality, Murray et. al compiled all countries with high-quality vital registration data for the 1918-20 pandemic and used these data to calculate excess mortality. This might cause certain biases and make the data inaccurate when applying it globally. For example, proper data collection just began in 1918, and only countries that have the resources to properly record the data are chosen. It is reasonable to argue that they are already developed nations, and only including them means that the data is not representing other affected developing nations at the time.
+The collection method of our sources varies. For @fig-2, 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(fig.width=6.5, fig.height=2.8) 
+
 # loading in relevant libraries
 library(tidyverse)
 library(dplyr, warn.conflicts = FALSE)
@@ -40,6 +45,7 @@ library(lubridate)
 library(haven)
 library(readxl)
 library(ggplot2)
+library(scales)
 ### Input data ###
 figure1_rawdata<-read_dta(here::here("Input/Data/Angelucci_Cage_AEJMicro_dataset.dta"))
 figure2_rawdata<-read_dta(here::here("Input/Data/Angelucci_Cage_AEJMicro_Descriptive_evidence_advertisement.dta"))
@@ -53,16 +59,41 @@ figure5_rawdata<-read_dta(here::here("Input/Data/Angelucci_Cage_AEJMicro_Descrip
 
 ## 3. Results
 
-Excess mortality rate is the rate of deaths from all causes during a crisis (in this case, the pandemic) above and beyond what we would have expected to see under "normal" conditions. It is imperative to understand which group is the most vulnerable, since that information can aid our healthcare system to mitigate the impact. In figure 1 below, we have compared the mortality rate with age groups and gender during the 1918 Influenza. There is a clear spike of excess death rate for male and female populations in the 25 to 29 age group. In addition, the H1N1 virus seems to be most effective at killing young adults and the middle age population from 15 to 39. Furthermore, males have a higher chance of death overall when compared to females during the influenza in those 13 recorded countries.
 
+The code of the graph have some issue now :) 
 ```{r}
-#| label: fig-1mortality
-#| fig-cap: Median Excess Mortality Rate by Age and Sex in 13 Countries
+#| label: fig-1revenuesjournalists
+#| fig-cap: The Counterrelationship between Newspaper Revenue and the Number of Daily Journalists
 #| message: false
 #| warning: false
 #| echo: false
 
-### Draw graph ###
+# create a line graph
+figure1_rawdata |>
+  ggplot( mapping = aes(x = year, y = ra_cst + nb_journ)) +
+  geom_line(aes(y = ra_cst), color = "blue") +
+  scale_y_continuous(
+    name = "Million US$",
+    labels = c("10,000", "20,000", "30,000", "40,000", "50,000"),
+    breaks = c(10000, 20000, 30000, 40000, 50000),
+    sec.axis = sec_axis(trans = ~., name = "Number of daily newspaper journalists",
+                        labels = c("30,000", "35,000", "40,000", "45,000", "50,000", "55,000", "60,000"),
+                        breaks = c(30000, 35000, 40000, 45000, 50000, 55000, 60000),
+                        )) +
+  geom_line(aes(y = nb_journ/5,000), color = "red") +
+  labs(y = "Million US$", title = "Newspapers' advertising revenues vs Number of daily newspaper journalists") +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 8),
+        axis.text.y = element_text(angle = 0, hjust = 1, vjust = 1, size = 8))
+```
+
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: fig-2
+#| fig-cap: ""
 
 ```
 
@@ -70,17 +101,8 @@ Excess mortality rate is the rate of deaths from all causes during a crisis (in 
 #| message: false
 #| warning: false
 #| echo: false
-#| label: fig-2CoivdDeath
-#| fig-cap: "Covid-19 Death by Age in United States"
-
-```
-
-```{r}
-#| message: false
-#| warning: false
-#| echo: false
-#| fig-cap: "Stock Market Indices by year in London and U.S."
-#| label: fig-5stockmarket
+#| fig-cap: ""
+#| label: fig-5
 
 ### Draw graph ###
 ```
@@ -89,15 +111,13 @@ Excess mortality rate is the rate of deaths from all causes during a crisis (in 
 
 ### 4.1 Findings
 
-We can clearly see that the Influenza and COVID-19 affects vastly different age groups in the above section(@fig-1mortality)(@fig-2CoivdDeath).
-
 ### 4.2
 
 ### 4.3 Ethical Implications
 
 ### 4.4 Potential Bias
 
-### 4.5 Limitations of Our Paper
+### 4.5 Limitations of the Paper
 
 ### 4.6 Possible Next Steps
 
